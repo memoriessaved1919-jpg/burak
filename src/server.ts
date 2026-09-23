@@ -1,9 +1,11 @@
-console.log("EXECUTED")
+// Architecturl pattern: MVC, Dependency Injection, MVP
+// MVC = MODEL VIEW CONTROLLER
 
-import moment from "moment"
 
-const currentTime = moment().format("YYYY MM DD")
-console.log(currentTime)
+// Design pattern: Middleware, Decorator
 
-const person: string = "martin";
-const count: number = 100;
+
+// Module JS                                     // Common JS
+//import moment from 'moment';     // const moment = require('moment')
+import dotenv from 'dotenv'    // dotenv paketini import qilyapmiz — u .env faylni o'qish uchun kerak
+dotenv.config();               // .env fayldagi barcha qiymatlarni process.env ichiga yozib qo'yadi       
