@@ -14,7 +14,7 @@ import app from "./app"
 // CLUSTER => DATABASE => COLLECTION => DOCUMENT
 
 
-
+// TCP connection
 mongoose
     .connect(process.env.MONGO_URL as string, {}) // .env fayldagi MONGO_URL manzili orqali MongoDB bazasiga ulanishga harakat qiladi
     // "as string" — TypeScript'ga "bu qiymat aniq string" deb majburan aytib qo'yish (chunki process.env qiymati undefined ham bo'lishi mumkin)
