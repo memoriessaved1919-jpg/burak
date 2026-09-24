@@ -20,7 +20,7 @@ function getSquareNumbers(arr: number[]): SquareNumber[] {
     let natija: SquareNumber[] = [];
 
     for (let i = 0; i < arr.length; i++) {
-        let son = { number: arr[i], square: arr[i] * arr[i] }
+        let son = { number: arr[i], square: arr[i] ** 2 }
         natija.push(son)
     }
     return natija
