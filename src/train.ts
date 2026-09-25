@@ -1,5 +1,8 @@
-//N-TASK
 
+// N-TASK
+console.log("N-TASK javiblari");
+
+//N-TASK
 //Shunday function yozing, 
 // u string qabul qilsin va string palindrom yani togri oqilganda ham, 
 // orqasidan oqilganda ham bir hil oqiladigan soz ekanligini aniqlab boolean qiymat qaytarsin. 
@@ -13,14 +16,6 @@ function palindromCheck(input: string): boolean {
 }
 
 console.log(palindromCheck("mam"))
-
-
-
-
-
-
-
-
 
 
 

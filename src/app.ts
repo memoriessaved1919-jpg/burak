@@ -2,6 +2,9 @@ import express from 'express';
 // express kutubxonasini import qilyapmiz — Node.js uchun web-server yaratish framework'i
 import path from 'path';
 // path — Node.js'ning o'zida mavjud modul, fayl/papka yo'llarini (path) to'g'ri qurish uchun ishlatiladi   
+import router from "./router"
+
+
 
 /** 1-ENTRANCE **/
 const app = express();
@@ -33,6 +36,7 @@ app.set("view engine", "ejs")
 
 
 /** 4-ROUTERS **/
+app.use("/", router)
 
 
 export default app;
