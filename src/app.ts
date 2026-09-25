@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 // path — Node.js'ning o'zida mavjud modul, fayl/papka yo'llarini (path) to'g'ri qurish uchun ishlatiladi   
 import router from "./router"
+import routerAdmin from "./routerAdmin"
 
 
 
@@ -36,7 +37,8 @@ app.set("view engine", "ejs")
 
 
 /** 4-ROUTERS **/
-app.use("/", router)
+app.use("/admin", routerAdmin)  // SSR: EJS
+app.use("/", router)            //SPA: REACT
 
 
 export default app;
