@@ -1,3 +1,16 @@
+/* Project Standarts:
+  - Logging standrts
+  - Naming standarts:
+      function, method, variable => CAMEL    goHome
+      class => PASCAL                        MemberService
+      folder => KEBAB
+      css => SNAKE                           button_style  
+  - Error handling      
+*/
+
+
+
+
 
 // N-TASK
 console.log("N-TASK javiblari");

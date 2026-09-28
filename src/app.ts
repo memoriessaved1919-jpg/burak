@@ -4,6 +4,8 @@ import path from 'path';
 // path — Node.js'ning o'zida mavjud modul, fayl/papka yo'llarini (path) to'g'ri qurish uchun ishlatiladi   
 import router from "./router"
 import routerAdmin from "./routerAdmin"
+import morgan from "morgan"
+import { MORGAN_FORMAT } from './libs/config';
 
 
 
@@ -25,6 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // so'rov (request) tanasida JSON formatida kelgan ma'lumotlarni o'qib, req.body ichiga joylab beradi
 // (masalan frontend fetch/axios orqali JSON yuborganda shu kerak bo'ladi)
+app.use(morgan(MORGAN_FORMAT))
 /** 2-SESSIONS **/
 
 
