@@ -3,7 +3,7 @@ import express from 'express';
 import path from 'path';
 // path — Node.js'ning o'zida mavjud modul, fayl/papka yo'llarini (path) to'g'ri qurish uchun ishlatiladi   
 import router from "./router"
-import routerAdmin from "./routerAdmin"
+import routerAdmin from "./router-admin"
 import morgan from "morgan"
 import { MORGAN_FORMAT } from './libs/config';
 
