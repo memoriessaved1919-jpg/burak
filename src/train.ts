@@ -1,11 +1,35 @@
+//O-TASK
+console.log("O-TASK javiblari");
+//Shunday function yozing, u har xil valuelardan iborat array qabul qilsin va  
+// array ichidagi sonlar yigindisini hisoblab chiqqan javobni qaytarsin. 
+// MASALAN: calculateSumOfNumbers([10, "10", {son: 10}, true, 35]) return 45.
+
+function calculateSumOfNumbers(arr: any[]): number {
+    let sum = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+        if (typeof arr[i] === "number") {
+            sum += arr[i];
+        }
+    }
+
+    return sum;
+}
+
+console.log(calculateSumOfNumbers([10, "10", { son: 10 }, true, 35]));
+
+
+
+
+
 /* Project Standarts:
   - Logging standrts
   - Naming standarts:
       function, method, variable => CAMEL    goHome
       class => PASCAL                        MemberService
       folder => KEBAB
-      css => SNAKE                           button_style  
-  - Error handling      
+      css => SNAKE                           button_style
+  - Error handling
 */
 
 
@@ -13,7 +37,7 @@
 
 
 // N-TASK
-console.log("N-TASK javiblari");
+//console.log("N-TASK javiblari");
 
 //N-TASK
 //Shunday function yozing, 
@@ -22,13 +46,13 @@ console.log("N-TASK javiblari");
 // MASALAN: palindromCheck("dad") return true; palindromCheck("son") return false.
 
 
-function palindromCheck(input: string): boolean {
-    const reverseInput = input.split("").reverse().join("");
+// function palindromCheck(input: string): boolean {
+//     const reverseInput = input.split("").reverse().join("");
 
-    return input === reverseInput;
-}
+//     return input === reverseInput;
+// }
 
-console.log(palindromCheck("mam"))
+// console.log(palindromCheck("mam"))
 
 
 
