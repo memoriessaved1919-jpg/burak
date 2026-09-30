@@ -1,4 +1,5 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose, { Schema } from 'mongoose'       //schemadagi mongoose bizga database bilan 
+// oldi berdilarni tartibga soladi
 import { MemberType, MemberStatus } from "../libs/enums/member.enum";
 
 const memberSchema = new Schema({

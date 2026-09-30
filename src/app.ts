@@ -16,28 +16,24 @@ const app = express();
 
 
 app.use(express.static(path.join(__dirname, "public")));
-// app.use — middleware qo'shish uchun ishlatiladi (har bir so'rovda ishlaydigan funksiya)
 // express.static(...) — "public" papkadagi fayllarni (masalan rasm, css, js) to'g'ridan-to'g'ri
 // brauzerga ko'rsatishga ruxsat beradi
-// path.join(__dirname, "public") — joriy fayl joylashgan papka ichidagi "public" papkaga to'liq yo'l quradi
-// (__dirname — joriy faylning papka manzilini bildiruvchi, Node.js'ning o'zida mavjud o'zgaruvchi)
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true })); // Traditional API support
 // HTML formadan yuborilgan ma'lumotlarni (masalan <form> orqali) o'qib, req.body ichiga joylab beradi
 // "extended: true" — ichma-ich obyekt va massivlarni ham to'g'ri parslash imkonini beradi
-app.use(express.json());
+app.use(express.json()); // Rest API support
 // so'rov (request) tanasida JSON formatida kelgan ma'lumotlarni o'qib, req.body ichiga joylab beradi
 // (masalan frontend fetch/axios orqali JSON yuborganda shu kerak bo'ladi)
-app.use(morgan(MORGAN_FORMAT))
-/** 2-SESSIONS **/
+app.use(morgan(MORGAN_FORMAT)) // Logging standartlari
+/** 2-SESSIONS **/       // Tamg'a
 
 
 /** 3-VIEWS **/
 app.set("views", path.join(__dirname, "views"));
 // EJS shablon fayllari (.ejs) qaysi papkada joylashganini Express'ga aytib qo'yadi ("views" papka)
-app.set("view engine", "ejs")
+app.set("view engine", "ejs") // backend da HTML quradi 
 // Express'ga sahifalarni render qilishda EJS shablon dvigatelidan foydalanishni buyuradi
 // shundan keyin res.render("nomi") chaqirilganda, u "views" papkadagi "nomi.ejs" faylini qidiradi
-
 
 /** 4-ROUTERS **/
 app.use("/admin", routerAdmin)  // SSR: EJS

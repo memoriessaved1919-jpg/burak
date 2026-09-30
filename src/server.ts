@@ -4,12 +4,9 @@
 
 // Design pattern: Middleware, Decorator
 
-
-// Module JS                                     // Common JS
-//import moment from 'moment';     // const moment = require('moment')
-import dotenv from 'dotenv'    // dotenv paketini import qilyapmiz — u .env faylni o'qish uchun kerak
-dotenv.config();               // .env fayldagi barcha qiymatlarni process.env ichiga yozib qo'yadi       
-import mongoose from 'mongoose'   // mongoose kutubxonasini import qilyapmiz — MongoDB bilan ishlash uchun
+import dotenv from 'dotenv'    // dotenv .env(environmental variable) olib tizimga yuklab beradi
+dotenv.config();
+import mongoose from 'mongoose'   // mongoose - MongoDB bilan ishlash uchun
 import app from "./app"
 // CLUSTER => DATABASE => COLLECTION => DOCUMENT
 
@@ -26,5 +23,5 @@ mongoose
             console.log(`The server is running successfully on port: ${PORT}`)
         })
     })
-    .catch((err) => console.log("ERROR on connection MongoDB", err))
+    .catch((err) => console.log("ERROR on connection MongoDB", err));
 

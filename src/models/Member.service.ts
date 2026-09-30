@@ -11,13 +11,15 @@ class MemberService {
     constructor() {
         this.memberModel = MemberModel;
     }
-
+    // define
     public async processSignup(input: MemberInput): Promise<Member> {           // Promise<void> method hech nima qaytarmasligi uchun
-        const exist = await this.memberModel
-            .findOne({ memberType: MemberType.RESTAURANT })
-            .exec();
-        console.log("exist:", exist)
+        /* SchemaModel + staticMethod = Query */
+        const exist = await this.memberModel // databasega borib RESTAURAT member bormi izlab beradi
+            .findOne({ memberType: MemberType.RESTAURANT }) // Query
+            .exec(); // bizga result beradi                 // Query
+        console.log(!!exist)
         if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+
         try {
             const result = await this.memberModel.create(input);
             result.memberPassword = ""
