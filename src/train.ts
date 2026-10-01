@@ -1,25 +1,44 @@
+//P-TASK
+console.log("P-TASK javiblari");
+
+// P-TASK
+// Shunday function yozing, 
+// u object qabul qilsin va arrayni object arrayga otkazib 
+// arrayni qaytarsin.
+//  MASALAN: objectToArray({a: 10, b: 20}) return [["a", 10], ["b", 20]].
+
+function objectToArray(obj: Record<string, number>): [string, number][] {
+    let kalitlar = Object.keys(obj);
+    let natija: [string, number][] = [];
+
+    for (let i = 0; i < kalitlar.length; i++) {
+        natija.push([kalitlar[i], obj[kalitlar[i]]]);
+    }
+
+    return natija;
+}
+
+console.log(objectToArray({a: 10, b: 20}));
+
 //O-TASK
-console.log("O-TASK javiblari");
+// console.log("O-TASK javiblari");
 //Shunday function yozing, u har xil valuelardan iborat array qabul qilsin va  
 // array ichidagi sonlar yigindisini hisoblab chiqqan javobni qaytarsin. 
 // MASALAN: calculateSumOfNumbers([10, "10", {son: 10}, true, 35]) return 45.
 
-function calculateSumOfNumbers(arr: any[]): number {
-    let sum = 0;
+// function calculateSumOfNumbers(arr: any[]): number {
+//     let sum = 0;
 
-    for (let i = 0; i < arr.length; i++) {
-        if (typeof arr[i] === "number") {
-            sum += arr[i];
-        }
-    }
+//     for (let i = 0; i < arr.length; i++) {
+//         if (typeof arr[i] === "number") {
+//             sum += arr[i];
+//         }
+//     }
 
-    return sum;
-}
+//     return sum;
+// }
 
-console.log(calculateSumOfNumbers([10, "10", { son: 10 }, true, 35]));
-
-
-
+// console.log(calculateSumOfNumbers([10, "10", { son: 10 }, true, 35]));
 
 
 /* Project Standarts:
@@ -31,9 +50,6 @@ console.log(calculateSumOfNumbers([10, "10", { son: 10 }, true, 35]));
       css => SNAKE                           button_style
   - Error handling
 */
-
-
-
 
 
 // N-TASK
@@ -53,7 +69,6 @@ console.log(calculateSumOfNumbers([10, "10", { son: 10 }, true, 35]));
 // }
 
 // console.log(palindromCheck("mam"))
-
 
 
 // M-TASK
