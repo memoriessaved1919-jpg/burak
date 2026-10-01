@@ -1,5 +1,5 @@
 // Service model va Schema modellarni biz Classlar orqaliy quramiz
-import { MemberInput } from "../libs/types/member"
+import { LoginInput, MemberInput } from "../libs/types/member"
 import MemberModel from "../schema/Member.model";
 import { Member } from "../libs/types/member";
 import { HttpCode, Message } from "../libs/Errors";
@@ -17,20 +17,34 @@ class MemberService {
         const exist = await this.memberModel // databasega borib RESTAURAT member bormi izlab beradi
             .findOne({ memberType: MemberType.RESTAURANT }) // Query
             .exec(); // bizga result beradi                 // Query
-        console.log(!!exist)
-        if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+        if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED); // bo'lsa to'xtat
 
         try {
             const result = await this.memberModel.create(input);
-            result.memberPassword = ""
+            result.memberPassword = "";
             return result;                                  // Promiseni methodimiz faqat async method bo'lganda ishlatamiz
-        } catch (err) {
+        }   catch (err) {
             throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
         }
-
-
     }
 
+    public async processLogin(input: LoginInput): Promise<Member> {
+        const member = await this.memberModel
+        .findOne
+        ({memberNick: input.memberNick},  // query conditionni findOne ichiga kiritamiz(memberModuleda qanday malumot qidiramiz)
+         { memberNick: 1, memberPassword: 1 })  
+      // findOne({ memberNick: "Burak" })
+        .exec();  
+        if(!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK); // b'lmasa to'xtat
+
+        const isMatch = input.memberPassword === member.memberPassword;
+        if(!isMatch) {
+            throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD)
+        }
+        
+        return await this.memberModel.findById(member._id).exec();
+
+    }
 }
 
 export default MemberService;
