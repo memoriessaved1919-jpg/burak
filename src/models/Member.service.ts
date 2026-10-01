@@ -5,6 +5,7 @@ import { Member } from "../libs/types/member";
 import { HttpCode, Message } from "../libs/Errors";
 import Errors from "../libs/Errors";
 import { MemberType } from "../libs/enums/member.enum";
+import * as bcrypt from "bcryptjs";
 
 class MemberService {
     private readonly memberModel;
@@ -18,6 +19,9 @@ class MemberService {
             .findOne({ memberType: MemberType.RESTAURANT }) // Query
             .exec(); // bizga result beradi                 // Query
         if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED); // bo'lsa to'xtat
+
+        const salt = await bcrypt.genSalt();
+        input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
 
         try {
             const result = await this.memberModel.create(input);
@@ -36,8 +40,14 @@ class MemberService {
       // findOne({ memberNick: "Burak" })
         .exec();  
         if(!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK); // b'lmasa to'xtat
+       
+        const isMatch = await bcrypt.compare(
+            input.memberPassword,
+            member.memberPassword);
+       // const isMatch = input.memberPassword === member.memberPassword;
+         
 
-        const isMatch = input.memberPassword === member.memberPassword;
+
         if(!isMatch) {
             throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD)
         }
