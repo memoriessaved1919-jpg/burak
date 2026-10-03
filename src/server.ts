@@ -20,7 +20,8 @@ mongoose
         const PORT = process.env.PORT ?? 3003     // .env dagi PORT qiymatini oladi, agar u bo'lmasa (undefined), 3003 ni ishlatadi
         // ("??" — nullish coalescing: chap tomon null/undefined bo'lsagina o'ng tomon ishlatiladi)
         app.listen(PORT, function () {
-            console.log(`The server is running successfully on port: ${PORT}`)
+            console.info(`The server is running successfully on port: ${PORT}`)
+            console.info(`Admin project on http://localhost:${PORT}/admin \n`)
         })
     })
     .catch((err) => console.log("ERROR on connection MongoDB", err));
