@@ -1,5 +1,23 @@
+//Q-TASK
+console.log("Q-TASK javiblari");
+
+// Shunday function yozing,
+//  u 2 ta parametrgga ega bolib birinchisi object,
+//  ikkinchisi string. 
+// Agar string parametr objectni propertysi bolsa 
+// true bolmasa false qaytarsin. 
+// MASALAN: hasProperty({name: "BMW", model: "M3"}, "model") 
+// return true; hasProperty({name: "BMW", model: "M3"}, "year") return false.
+
+function hasProperty (obj: Record<string, any>, key: string): boolean {
+  let kalitlar = Object.keys(obj);
+  return kalitlar.includes(key)
+}
+console.log(hasProperty({name: "BMW", model: "M3"}, "model"))
+console.log(hasProperty({name: "BMW", model: "M3"}, "year"))
+
 //P-TASK
-console.log("P-TASK javiblari");
+// console.log("P-TASK javiblari");
 
 // P-TASK
 // Shunday function yozing, 
@@ -7,18 +25,18 @@ console.log("P-TASK javiblari");
 // arrayni qaytarsin.
 //  MASALAN: objectToArray({a: 10, b: 20}) return [["a", 10], ["b", 20]].
 
-function objectToArray(obj: Record<string, number>): [string, number][] {
-    let kalitlar = Object.keys(obj);
-    let natija: [string, number][] = [];
+// function objectToArray(obj: Record<string, number>): [string, number][] {
+//     let kalitlar = Object.keys(obj);
+//     let natija: [string, number][] = [];
 
-    for (let i = 0; i < kalitlar.length; i++) {
-        natija.push([kalitlar[i], obj[kalitlar[i]]]);
-    }
+//     for (let i = 0; i < kalitlar.length; i++) {
+//         natija.push([kalitlar[i], obj[kalitlar[i]]]);
+//     }
 
-    return natija;
-}
+//     return natija;
+// }
 
-console.log(objectToArray({a: 10, b: 20}));
+// console.log(objectToArray({a: 10, b: 20}));
 
 //O-TASK
 // console.log("O-TASK javiblari");
