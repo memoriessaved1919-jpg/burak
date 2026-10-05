@@ -11,9 +11,9 @@ import session from 'express-session';
 import ConnectMongoDB from 'connect-mongodb-session';
 
 const MongoDBStore = ConnectMongoDB(session);
-const store = new MongoDBStore({
- uri: String(process.env.MONGO_URL),
- collection: "session",
+const store = new MongoDBStore({ 
+ uri: String(process.env.MONGO_URL), // qaysi databasega ulanish
+ collection: "session", // "session" nomli collectionda saqlanishini bildiradi
 });
 
 
@@ -40,7 +40,7 @@ app.use(
         cookie: {
             maxAge: 1000 * 3600 * 3, // 3h
         },
-        store: store,
+        store: store, //session'lar yuqorida yasagan MongoDB store'da saqlansin
         resave: true,
         saveUninitialized: true,
     })

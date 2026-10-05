@@ -60,10 +60,10 @@ class MemberService {
 
     public async processSignup(input: MemberInput): Promise<Member> {           // Promise<void> method hech nima qaytarmasligi uchun
         /* SchemaModel + staticMethod = Query */
-        const exist = await this.memberModel // databasega borib RESTAURAT member bormi izlab beradi
-            .findOne({ memberType: MemberType.RESTAURANT }) // Query
-            .exec(); // bizga result beradi                 // Query
-        if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED); // bo'lsa to'xtat
+         const exist = await this.memberModel // databasega borib RESTAURAT member bormi izlab beradi
+             .findOne({ memberType: MemberType.RESTAURANT }) // Query
+             .exec(); // bizga result beradi                 // Query
+         if (exist) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED); // bo'lsa to'xtat
 
         const salt = await bcrypt.genSalt();
         input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
