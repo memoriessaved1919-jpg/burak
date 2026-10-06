@@ -1,5 +1,27 @@
+//R-TASK
+console.log("R-TASK javiblari");
+
+//Shunday function yozing, 
+// u string parametrga ega bolsin. 
+// String "1+2" holatda pass qilinganda string ichidagi sonlar yigindisini number holatda qaytarsin.
+//  MASALAN: calculate("1+3") return 4.
+
+function calculate(str: string): number {
+    const sonlar = str.split("+");
+    let sum = 0;
+
+    for (let i = 0; i < sonlar.length; i++) {
+        sum += Number(sonlar[i]);
+    }
+
+    return sum;
+}
+
+console.log(calculate("1+3"));  
+console.log(calculate("1+2+3")); 
+
 //Q-TASK
-console.log("Q-TASK javiblari");
+// console.log("Q-TASK javiblari");
 
 // Shunday function yozing,
 //  u 2 ta parametrgga ega bolib birinchisi object,
@@ -9,12 +31,12 @@ console.log("Q-TASK javiblari");
 // MASALAN: hasProperty({name: "BMW", model: "M3"}, "model") 
 // return true; hasProperty({name: "BMW", model: "M3"}, "year") return false.
 
-function hasProperty (obj: Record<string, any>, key: string): boolean {
-  let kalitlar = Object.keys(obj);
-  return kalitlar.includes(key)
-}
-console.log(hasProperty({name: "BMW", model: "M3"}, "model"))
-console.log(hasProperty({name: "BMW", model: "M3"}, "year"))
+// function hasProperty (obj: Record<string, any>, key: string): boolean {
+//   let kalitlar = Object.keys(obj);
+//   return kalitlar.includes(key)
+// }
+// console.log(hasProperty({name: "BMW", model: "M3"}, "model"))
+// console.log(hasProperty({name: "BMW", model: "M3"}, "year"))
 
 //P-TASK
 // console.log("P-TASK javiblari");
