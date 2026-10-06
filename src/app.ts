@@ -36,9 +36,9 @@ app.use(morgan(MORGAN_FORMAT)) // Logging standartlari
 /** 2-SESSIONS **/       // Tamg'a
 app.use(
     session({
-        secret: String(process.env.SESSION_SECRET),
+        secret: String(process.env.SESSION_SECRET), //sessionlarni hosil qilishda ishlatiladigon kod
         cookie: {
-            maxAge: 1000 * 3600 * 3, // 3h
+            maxAge: 1000 * 3600 * 3, // 3h // sessionlar qancha vaqt amal qilishi
         },
         store: store, //session'lar yuqorida yasagan MongoDB store'da saqlansin
         resave: true,
