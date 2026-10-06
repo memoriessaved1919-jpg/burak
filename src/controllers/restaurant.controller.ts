@@ -6,7 +6,7 @@ import MemberService from "../models/Member.service"
 import { LoginInput, MemberInput } from "../libs/types/member"
 import { MemberType } from "../libs/enums/member.enum";
 import { AdminRequest } from "../libs/types/member";
-import { Message } from "../libs/Errors";
+import Errors, { Message } from "../libs/Errors";
 
 const memberService = new MemberService();
 
@@ -18,6 +18,7 @@ restaurantController.goHome = (req: Request, res: Response) => {
         // send | json | redirect | end | render
     } catch (err) {
         console.log("Error, goHome", err)
+        res.redirect("/admin");
     }
 }
 
@@ -27,6 +28,7 @@ restaurantController.getSignup = (req: Request, res: Response) => {
         res.render("signup");
     } catch (err) {
         console.log("Error, goSignup", err)
+        res.redirect("/admin");
     }
 }
 
@@ -35,7 +37,8 @@ restaurantController.getLogin = (req: Request, res: Response) => {
         console.log("getLogin")
         res.render("login");
     } catch (err) {
-        console.log("Error, goLogin", err)
+        console.log("Error, goLogin", err);
+        res.redirect("/admin");
     }
 }
 
@@ -55,7 +58,24 @@ restaurantController.processLogin = async (req: AdminRequest, res: Response) => 
            
     } catch (err) {
         console.log("Error, processLogin", err)
+        const message = 
+        err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG
+        res.send(
+            `<script>alert("${message}"); window. location.replace('admin/login')/script>`    
+        );
         res.send(err)
+    }
+}
+
+restaurantController.logout = async (req: AdminRequest, res: Response) => {
+    try {
+        console.log("logout")
+        req.session.destroy(function () {
+            res.redirect("/admin")
+        });
+    } catch (err) {
+        console.log("Error, logout", err)
+        res.redirect("/admin")
     }
 }
 
@@ -76,6 +96,11 @@ restaurantController.processSignup = async (req: AdminRequest, res: Response) =>
 
     } catch (err) {
         console.log("Error, processSignup")
+        const message = 
+        err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG
+        res.send(
+            `<script>alert("${message}"); window. location.replace('admin/signup')/script>`    
+        );
         res.send(err)
     }
 }

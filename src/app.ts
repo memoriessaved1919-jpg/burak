@@ -38,10 +38,10 @@ app.use(
     session({
         secret: String(process.env.SESSION_SECRET), //sessionlarni hosil qilishda ishlatiladigon kod
         cookie: {
-            maxAge: 1000 * 3600 * 3, // 3h // sessionlar qancha vaqt amal qilishi
+            maxAge: 1000 * 3600 * 6, // 3h // sessionlar qancha vaqt amal qilishi
         },
         store: store, //session'lar yuqorida yasagan MongoDB store'da saqlansin
-        resave: true,
+        resave: false,
         saveUninitialized: true,
     })
 )
