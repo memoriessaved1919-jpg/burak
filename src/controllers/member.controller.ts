@@ -8,7 +8,7 @@ import Errors from "../libs/Errors";
 
 const memberService = new MemberService()
 
-const memberController: T = {}
+const memberController: T = {};
 // DEFINE
 memberController.signup = async (req: Request, res: Response) => {
     try {
@@ -22,8 +22,8 @@ memberController.signup = async (req: Request, res: Response) => {
         console.log("Error, signup", err)
         if(err instanceof Errors) res.status(err.code).json(err);
         else res.status(Errors.standard.code).json(Errors.standard);
-    }
-}
+    };
+};
 
 
 
