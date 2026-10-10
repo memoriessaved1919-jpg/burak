@@ -6,7 +6,7 @@ import MemberService from "../models/Member.service"
 import { LoginInput, MemberInput } from "../libs/types/member"
 import { MemberType } from "../libs/enums/member.enum";
 import { AdminRequest } from "../libs/types/member";
-import Errors, { Message } from "../libs/Errors";
+import Errors, { HttpCode, Message } from "../libs/Errors";
 
 const memberService = new MemberService();
 
@@ -53,7 +53,7 @@ restaurantController.processLogin = async (req: AdminRequest, res: Response) => 
 
         req.session.member = result; //  resultimizni req.session.memberga saqlab qo'yyapmiz
         req.session.save(function () {    // sidni cookiesga joyledi
-            res.send(result)
+            res.redirect("/admin/product/all")
         });
            
     } catch (err) {
@@ -83,15 +83,19 @@ restaurantController.logout = async (req: AdminRequest, res: Response) => {
 restaurantController.processSignup = async (req: AdminRequest, res: Response) => {
     try {
         console.log("processSignup");
+        const file = req.file;
+        if(!file)
+            throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG)
 
         const newMember: MemberInput = req.body;
+        newMember.memberImage = file?.path;
         newMember.memberType = MemberType.RESTAURANT;
         const result = await memberService.processSignup(newMember); // CALL
         // TODO SESSIONS AUTHENTICATION
 
         req.session.member = result;
         req.session.save(function () {
-            res.send(result)
+            res.redirect("/admin/product/all")
         });
 
     } catch (err) {
@@ -99,7 +103,7 @@ restaurantController.processSignup = async (req: AdminRequest, res: Response) =>
         const message = 
         err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG
         res.send(
-            `<script>alert("${message}"); window. location.replace('admin/signup')/script>`    
+            `<script>alert("${message}"); window. location.replace('/admin/signup');</script>`    
         );
         res.send(err)
     }
