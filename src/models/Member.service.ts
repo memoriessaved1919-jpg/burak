@@ -1,11 +1,12 @@
 // Service model va Schema modellarni biz Classlar orqaliy quramiz
-import { LoginInput, MemberInput } from "../libs/types/member"
+import { LoginInput, MemberInput, MemberUpdateInput } from "../libs/types/member"
 import MemberModel from "../schema/Member.model";
 import { Member } from "../libs/types/member";
 import { HttpCode, Message } from "../libs/Errors";
 import Errors from "../libs/Errors";
 import { MemberType } from "../libs/enums/member.enum";
 import * as bcrypt from "bcryptjs";
+import { shapeIntoMongooseObjectId } from "../libs/config";
 
 class MemberService {
     private readonly memberModel;
@@ -108,6 +109,18 @@ class MemberService {
        .exec();
 
        if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+       return result
+    }
+
+
+     public async UpdateChosenUser(input: MemberUpdateInput): Promise<Member> {  
+       input._id = shapeIntoMongooseObjectId(input._id);      
+       const result = await this.memberModel
+       .findByIdAndUpdate({_id:input._id}, input, { new: true } ) 
+       .exec();
+
+       if(!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
 
        return result
     }
