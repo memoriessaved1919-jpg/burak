@@ -1,17 +1,38 @@
+// U-TASK
+// console.log("U-TASK javiblari");
+
+// Shunday function yozing, 
+// uni number parametri bolsin va 
+// 0 dan berilgan parametrgacha bolgan oraliqdagi faqat toq sonlar nechtaligini return qilsin.
+//  MASALAN: sumOdds(9) return 4; sumOdds(11) return 5.
+
+function sumOdds (n: number): number {
+    let soni = 0
+
+    for(let i = 0; i < n; i++) {
+        if (i % 2 === 1) {
+            soni++         
+        }
+    }
+    return soni
+}
+
+console.log(sumOdds(9));
+
 // T-TASK
-console.log("T-TASK javiblari");
+// console.log("T-TASK javiblari");
 
 // Shunday function yozing, 
 // u sonlardan tashkil topgan 2 ta array qabul qilsin va 
 // ikkala arraydagi sonlarni tartiblab bir arrayda qaytarsin. 
 // MASALAN: mergeSortedArrays([0,3,4,31], [4,6,30]) return [0,3,4,4,6,30,31].
 
-function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
-    const birlashgan = arr1.concat(arr2);
-    return birlashgan.sort((a, b) => a - b);
-}
+// function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
+//     const birlashgan = arr1.concat(arr2);
+//     return birlashgan.sort((a, b) => a - b);
+// }
 
-console.log(mergeSortedArrays([0, 3, 4, 31], [4, 6, 30]));
+// console.log(mergeSortedArrays([0, 3, 4, 31], [4, 6, 30]));
 
 
 
