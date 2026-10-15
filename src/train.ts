@@ -1,3 +1,28 @@
+// V-TASK
+ console.log("V-TASK javiblari");
+
+ // Shunday function yozing,
+ //  uni string parametri bolsin va
+ //  stringdagi harf va u
+ //  harf necha marta takrorlangani sonidan tashkil topgan object qaytarsin. 
+ // MASALAN: countChars("hello") return {h: 1, e: 1, l: 2, o: 1}.
+
+ function countChars (str: string): Record<string, number> {
+    let daftar: Record<string, number>  = {}
+
+    for(let i = 0; i < str.length; i++) {
+        let harf = str[i] 
+
+    if (daftar[harf] === undefined) {
+        daftar[harf] = 1
+    } else { 
+        daftar[harf]++  }
+ }
+ return daftar
+}
+ console.log(countChars("hello"))
+ 
+
 // U-TASK
 // console.log("U-TASK javiblari");
 
@@ -6,18 +31,18 @@
 // 0 dan berilgan parametrgacha bolgan oraliqdagi faqat toq sonlar nechtaligini return qilsin.
 //  MASALAN: sumOdds(9) return 4; sumOdds(11) return 5.
 
-function sumOdds (n: number): number {
-    let soni = 0
+// function sumOdds (n: number): number {
+//     let soni = 0
 
-    for(let i = 0; i < n; i++) {
-        if (i % 2 === 1) {
-            soni++         
-        }
-    }
-    return soni
-}
+//     for(let i = 0; i < n; i++) {
+//         if (i % 2 === 1) {
+//             soni++         
+//         }
+//     }
+//     return soni
+// }
 
-console.log(sumOdds(9));
+// console.log(sumOdds(9));
 
 // T-TASK
 // console.log("T-TASK javiblari");

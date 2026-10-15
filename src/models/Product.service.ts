@@ -38,7 +38,7 @@ class ProductService {
         input: ProductUpdateInput
     ): Promise<Product> {
         // string => ObjectId
-         id = shapeIntoMongooseObjectId(id);                                        // o'zgargan malumotimizni qataradi
+         id = shapeIntoMongooseObjectId(id);   // paramsidni object idga aylantiryapmiz                                   // o'zgargan malumotimizni qataradi
          const result = await this.productModel
          .findOneAndUpdate({_id: id}, input, {new: true})
          .exec();
