@@ -2,11 +2,8 @@ console.log("Users frontend javascript file");
 
 $(function () {
     $(".member-status").on("change", function (e) {
-        const id = e.target.id;
-        console.log("id", id)
-
-        const memberStatus = $(`#${id}.member-status`).val();
-        console.log("memberStatus", memberStatus);
+        const id = e.target.id,
+         memberStatus = $(`#${id}.member-status`).val();
 
         //TODO Axios updateChosenUser
         axios.post("/admin/user/edit", {
@@ -17,8 +14,7 @@ $(function () {
             const result = response.data;
             console.log("result", result)
 
-            if (result.data) {
-              console.log("User updated!");  
+            if (result.data) { 
               $(".member-status").blur();
             } else alert("User update failed!");
         }).catch(err => {
