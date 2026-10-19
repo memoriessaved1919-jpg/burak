@@ -1,5 +1,24 @@
+// W-TASK
+ console.log("W-TASK javiblari");
+
+ // Shunday function yozing,  
+ // uni array va number parametrlari bolsin.
+ //  Function arrayni numberda berilgan uzunlikda kesib 
+ // bolaklarga ajratilgan array holatida qaytarsin.
+ //  MASALAN: chunkArray([1,2,3,4,5,6,7,8,9,10], 3) 
+ // return [[1,2,3], [4,5,6], [7,8,9], [10]].
+
+ function chunkArray (arr: number[], num: number): number[][] {
+    let natija: number[][] = [];
+    for(let i = 0; i <arr.length; i+= num) {
+        natija.push(arr.slice(i, i + num))
+    }
+    return natija
+ }
+console.log(chunkArray([1,2,3,4,5,6,7,8,9,10], 5));
+
 // V-TASK
- console.log("V-TASK javiblari");
+//console.log("V-TASK javiblari");
 
  // Shunday function yozing,
  //  uni string parametri bolsin va
@@ -7,20 +26,20 @@
  //  harf necha marta takrorlangani sonidan tashkil topgan object qaytarsin. 
  // MASALAN: countChars("hello") return {h: 1, e: 1, l: 2, o: 1}.
 
- function countChars (str: string): Record<string, number> {
-    let daftar: Record<string, number>  = {}
+//  function countChars (str: string): Record<string, number> {
+//     let daftar: Record<string, number>  = {}
 
-    for(let i = 0; i < str.length; i++) {
-        let harf = str[i] 
+//     for(let i = 0; i < str.length; i++) {
+//         let harf = str[i] 
 
-    if (daftar[harf] === undefined) {
-        daftar[harf] = 1
-    } else { 
-        daftar[harf]++  }
- }
- return daftar
-}
- console.log(countChars("hello"))
+//     if (daftar[harf] === undefined) {
+//         daftar[harf] = 1
+//     } else { 
+//         daftar[harf]++  }
+//  }
+//  return daftar
+// }
+//  console.log(countChars("hello"))
  
 
 // U-TASK
