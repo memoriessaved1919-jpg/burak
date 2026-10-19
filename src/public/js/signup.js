@@ -6,7 +6,7 @@ $(function () {
 
   fileTarget.on("change", function () {
     if (window.FileReader) {
-      const uploadFile = $(this)[0].files[0];
+      const uploadFile = $(this)[0].files[0]; // Bu qator input’da foydalanuvchi tanlagan birinchi faylni qo’lga olib, uploadFile ga saqlaydi
       const fileType = uploadFile["type"];
       const validImageType = ["image/jpg", "image/jpeg", "image/png"];
       if (!validImageType.includes(fileType)) {
