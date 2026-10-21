@@ -23,7 +23,7 @@ routerAdmin
 /* Product */
 routerAdmin.get(
     "/product/all",
-    restaurantController.verifyRestaurant, 
+    restaurantController.verifyRestaurant,
     productController.getAllProduct
     );
 routerAdmin.post(
@@ -41,12 +41,12 @@ routerAdmin.post(
 /* User */
 routerAdmin.get(
     "/user/all", 
-    restaurantController.verifyRestaurant, 
+    restaurantController.verifyRestaurant,
     restaurantController.getUsers
 );
 routerAdmin.post(
     "/user/edit", 
-    restaurantController.verifyRestaurant, 
+    restaurantController.verifyRestaurant,
     restaurantController.UpdateChosenUser
 );
 

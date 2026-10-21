@@ -1,5 +1,28 @@
-// W-TASK
- console.log("W-TASK javiblari");
+// X-TASK
+ console.log("X-TASK javiblari");
+
+ // Shunday function yozing, 
+ // uni object va string parapetrlari bolsin. 
+ // Function string parametri object ichida necha
+ //  marotaba takrorlanganligini qaytarsin (nested object bolsa ham sanasin).
+ //  MASALAN: countOccurrences({model: 'Bugatti', steer: {model: 'HANKOOK', size: 30}}, 'model')  return 2.
+
+ function countOccurrences (obj: Record<string, any>, str: string): number {
+    let soni = 0
+    let kalitlar = Object.keys(obj)
+    for (let i = 0; i < kalitlar.length; i++) {
+        if(kalitlar[i] === str){
+            soni++    
+        } if (typeof obj[kalitlar[i]] === "object") {
+            soni += countOccurrences (obj[kalitlar[i]], str)
+        }
+    }
+
+    return soni
+ }
+console.log(countOccurrences({ model: 'Bugatti', street: { model: 'HANKOOK', size: 30 } }, 'model'))
+// // W-TASK
+//  console.log("W-TASK javiblari");
 
  // Shunday function yozing,  
  // uni array va number parametrlari bolsin.
@@ -8,14 +31,14 @@
  //  MASALAN: chunkArray([1,2,3,4,5,6,7,8,9,10], 3) 
  // return [[1,2,3], [4,5,6], [7,8,9], [10]].
 
- function chunkArray (arr: number[], num: number): number[][] {
-    let natija: number[][] = [];
-    for(let i = 0; i <arr.length; i+= num) {
-        natija.push(arr.slice(i, i + num))
-    }
-    return natija
- }
-console.log(chunkArray([1,2,3,4,5,6,7,8,9,10], 5));
+//  function chunkArray (arr: number[], num: number): number[][] {
+//     let natija: number[][] = [];
+//     for(let i = 0; i <arr.length; i+= num) {
+//         natija.push(arr.slice(i, i + num))
+//     }
+//     return natija
+//  }
+// console.log(chunkArray([1,2,3,4,5,6,7,8,9,10], 5));
 
 // V-TASK
 //console.log("V-TASK javiblari");

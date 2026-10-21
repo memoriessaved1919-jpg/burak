@@ -1,6 +1,7 @@
 console.log("Products frontend javascript file");
 
 $(function () {
+    // Product turi o'zgarganda: DRINK bo'lsa Drink Volume, aks holda Dish Volume ko'rsatiladi
     $(".product-collection").on("change", () => {
         const selectedValue = $(".product-collection").val();
         if(selectedValue === "DRINK") {
@@ -11,17 +12,17 @@ $(function () {
             $("#product-collection").show();
         }
     });
-
+   // "New Product" bosilganda formani ochamiz, tugmani yashiramiz
     $("#process-btn").on("click", () => {
         $(".dish-container").slideToggle(500);
         $("#process-btn").css("display", "none"); // tugmani yoqotyapmiz
     });
-
+   // "Cancel" bosilganda formani yopamiz, tugmani qaytaramiz
     $("#cancel-btn").on("click", () => {
         $(".dish-container").slideToggle(100);
         $("#process-btn").css("display", "flex");
     });
-
+   // Status o'zgarganda backendga yangilash so'rovi yuboramiz
     $(".new-product-status").on("change", async function (e) {
     const id = e.target.id;
     const productStatus = $(`#${id}.new-product-status`).val();
@@ -62,7 +63,7 @@ function validateForm () {
         return false;
     } else return true;
 }
-
+// Tanlangan rasmni yuklashdan oldin ko'rsatadi (preview)
 function previewFileHandler (input, order) {
     const imgClassName = input.className;
     console.log("input", input)
