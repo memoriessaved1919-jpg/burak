@@ -20,26 +20,18 @@ const store = new MongoDBStore({
 
 /** 1-ENTRANCE **/
 const app = express();
-// express() funksiyasini chaqirib, "app" nomli Express ilovasi (dastur) obyektini yaratyapmiz
-// shu "app" orqali keyin barcha routing, middleware va server sozlamalari qilinadi
 
 
 app.use(express.static(path.join(__dirname, "public")));
-// express.static(...) — "public" papkadagi fayllarni (masalan rasm, css, js) to'g'ridan-to'g'ri
-// brauzerga ko'rsatishga ruxsat beradi
 app.use(express.urlencoded({ extended: true })); // Traditional API support
-// HTML formadan yuborilgan ma'lumotlarni (masalan <form> orqali) o'qib, req.body ichiga joylab beradi
-// "extended: true" — ichma-ich obyekt va massivlarni ham to'g'ri parslash imkonini beradi
 app.use(express.json()); // Rest API support
-// so'rov (request) tanasida JSON formatida kelgan ma'lumotlarni o'qib, req.body ichiga joylab beradi
-// (masalan frontend fetch/axios orqali JSON yuborganda shu kerak bo'ladi)
 app.use(morgan(MORGAN_FORMAT)) // Logging standartlari
 /** 2-SESSIONS **/       // Tamg'a
 app.use(
     session({
         secret: String(process.env.SESSION_SECRET), //sessionlarni hosil qilishda ishlatiladigon kod
         cookie: {
-            maxAge: 1000 * 3600 * 6, // 3h // sessionlar qancha vaqt amal qilishi
+            maxAge: 1000 * 3600 * 6,
         },
         store: store, //session'lar yuqorida yasagan MongoDB store'da saqlansin
         resave: false,
@@ -55,10 +47,7 @@ app.use(function(req, res, next) {
 
 /** 3-VIEWS **/
 app.set("views", path.join(__dirname, "views"));
-// EJS shablon fayllari (.ejs) qaysi papkada joylashganini Express'ga aytib qo'yadi ("views" papka)
 app.set("view engine", "ejs") // backend da HTML quradi 
-// Express'ga sahifalarni render qilishda EJS shablon dvigatelidan foydalanishni buyuradi
-// shundan keyin res.render("nomi") chaqirilganda, u "views" papkadagi "nomi.ejs" faylini qidiradi
 
 /** 4-ROUTERS **/
 app.use("/admin", routerAdmin)  // SSR: EJS
