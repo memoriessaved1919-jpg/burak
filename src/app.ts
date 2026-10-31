@@ -5,6 +5,7 @@ import path from 'path';
 import router from "./router"
 import routerAdmin from "./router-admin"
 import morgan from "morgan"
+import cookieParser from 'cookie-parser';
 import { MORGAN_FORMAT } from './libs/config';
 
 import session from 'express-session';
@@ -25,6 +26,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true })); // Traditional API support
 app.use(express.json()); // Rest API support
+app.use(cookieParser());
 app.use(morgan(MORGAN_FORMAT)) // Logging standartlari
 /** 2-SESSIONS **/       // Tamg'a
 app.use(
