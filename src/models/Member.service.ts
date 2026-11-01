@@ -71,6 +71,19 @@ class MemberService {
         return result    
     }
 
+    public async updateMember(
+        member: Member, // kim malumotni o'zgartirmoqchi 
+        input: MemberUpdateInput // qaysi malumoni o'zgartirmoqchi
+    ):  Promise<Member> {
+        const memberId = shapeIntoMongooseObjectId(member._id);
+        const result = await this.memberModel
+        .findOneAndUpdate({_id: memberId }, input, { new: true }) // new: true = yangilangan malumotni ber
+        .exec();
+        if(!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
+
+        return result
+    }
+
     /** SSR */
     // define
 

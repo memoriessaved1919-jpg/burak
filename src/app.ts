@@ -24,6 +24,7 @@ const app = express();
 
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/uploads", express.static("./uploads"));
 app.use(express.urlencoded({ extended: true })); // Traditional API support
 app.use(express.json()); // Rest API support
 app.use(cookieParser());
