@@ -29,10 +29,10 @@ class AuthService {
 // tokendan objectga aylantirish 
 
    public async checkAuth(token: string): Promise<Member> {
-    const result = (await jwt.verify(
+    const result = jwt.verify(
         token, 
         this.secretToken 
-    )) as Member; 
+    ) as Member; 
     console.log(`--- [AUTH] memberNick: ${result.memberNick} ---`)
     return result;
    }
