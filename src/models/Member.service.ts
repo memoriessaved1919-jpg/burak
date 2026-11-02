@@ -84,6 +84,18 @@ class MemberService {
         return result
     }
 
+    public async getTopUsers(): Promise<Member[]> {
+        const result = await this.memberModel.find({
+            memberStatus: MemberStatus.ACTIVE,
+            memberPoints: { $gte: 1}, // searching condition
+        }).sort({ memberPoints: -1 })
+        .limit(4)
+        .exec();
+        if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+        return result;
+    }
+
     /** SSR */
     // define
 
@@ -132,7 +144,7 @@ class MemberService {
     }
 
 
-    public async getUsers(): Promise<Member[]> {       
+    public async getUsers(): Promise<Member[]> {
        const result = await this.memberModel
        .find({memberType: MemberType.USER})
        .exec();
@@ -143,10 +155,10 @@ class MemberService {
     }
 
 
-     public async UpdateChosenUser(input: MemberUpdateInput): Promise<Member> {  
-       input._id = shapeIntoMongooseObjectId(input._id);      
+     public async UpdateChosenUser(input: MemberUpdateInput): Promise<Member> {
+       input._id = shapeIntoMongooseObjectId(input._id);
        const result = await this.memberModel
-       .findByIdAndUpdate({_id:input._id}, input, { new: true } ) 
+       .findByIdAndUpdate({_id:input._id}, input, { new: true } )
        .exec();
 
        if(!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
