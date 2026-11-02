@@ -5,15 +5,20 @@ import uploader from "./libs/utils/uploader";
 
 
 /** Member **/
+router.get(
+    "/member/restaurant",
+    memberController.getRestaurant
+);
+
 router.post("/member/login", memberController.login);
 router.post("/member/signup", memberController.signup);
 router.post(
     "/member/logout", 
-    memberController.verifyAuth, 
+    memberController.verifyAuth,
     memberController.logout
 )
 router.get(
-    "/member/detail", 
+    "/member/detail",
     memberController.verifyAuth, 
     memberController.getMemberDetail
 )
