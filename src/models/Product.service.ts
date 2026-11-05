@@ -1,6 +1,13 @@
 import { shapeIntoMongooseObjectId } from "../libs/config";
+import { ProductStatus } from "../libs/enums/product.enum";
 import Errors, { HttpCode, Message } from "../libs/Errors";
-import { Product, ProductInput, ProductUpdateInput } from "../libs/types/product";
+import { T } from "../libs/types/common";
+import { 
+    Product, 
+    ProductInput, 
+    ProductInquiry, 
+    ProductUpdateInput 
+} from "../libs/types/product";
 import ProductModel from "../schema/Product.model";
 
 class ProductService {
@@ -11,6 +18,31 @@ class ProductService {
         }
 
          /** SPA */
+
+         public async getProduct(inquiry: ProductInquiry): Promise<Product[]> {
+            const match: T = {productStatus: ProductStatus.PROCESS}
+
+             if (inquiry.productCollection) 
+                match.productCollection = inquiry.productCollection; // DISH,DRINK,SALAD ?
+            if (inquiry.search) {
+                match.productName = {$regex: new RegExp(inquiry.search, "i")};
+            }
+
+            const sort: T = 
+            inquiry.order === "productPrice"
+            ? { [inquiry.order]: 1 } //kichikdan kattaga ⬆️
+            : { [inquiry.order]: -1}; //kattadan kichikka ⬇️
+
+            const result = await this.productModel.aggregate([
+                { $match: match }, // pipeline
+                { $sort: sort },
+                { $skip: (inquiry.page * 1 - 1) * inquiry.limit }, //"chiqqan sonni" o'tqazib yubor 8
+                { $limit: inquiry.limit * 1 }, // 4 malumotni ober
+            ]).exec();
+            if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+            
+            return result
+         }
 
          /** SSR */
 
