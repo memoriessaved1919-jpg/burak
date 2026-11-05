@@ -9,6 +9,7 @@ import {
     ProductUpdateInput 
 } from "../libs/types/product";
 import ProductModel from "../schema/Product.model";
+import { ObjectId } from "mongoose"
 
 class ProductService {
     private readonly productModel;
@@ -19,7 +20,7 @@ class ProductService {
 
          /** SPA */
 
-         public async getProduct(inquiry: ProductInquiry): Promise<Product[]> {
+         public async getProducts(inquiry: ProductInquiry): Promise<Product[]> {
             const match: T = {productStatus: ProductStatus.PROCESS}
 
              if (inquiry.productCollection) 
@@ -33,14 +34,34 @@ class ProductService {
             ? { [inquiry.order]: 1 } //kichikdan kattaga ⬆️
             : { [inquiry.order]: -1}; //kattadan kichikka ⬇️
 
-            const result = await this.productModel.aggregate([
-                { $match: match }, // pipeline
+            const result = await this.productModel
+            .aggregate([
+                { $match: match }, // pipelinelar
                 { $sort: sort },
                 { $skip: (inquiry.page * 1 - 1) * inquiry.limit }, //"chiqqan sonni" o'tqazib yubor 8
                 { $limit: inquiry.limit * 1 }, // 4 malumotni ober
             ]).exec();
             if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
             
+            return result
+         }
+
+         public async getProduct(
+            memberId: ObjectId | null, 
+            id: string 
+        ): Promise<void> {
+            const productId = shapeIntoMongooseObjectId(id)
+
+            let result = await this.productModel
+            .findOne({
+                _id: productId, 
+                productStatus: ProductStatus.PROCESS
+            })
+            .exec()
+            if(!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+            // TODO if authenticated users => first => view log creation
+
             return result
          }
 
