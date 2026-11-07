@@ -10,7 +10,7 @@ import {
 } from "../libs/types/product";
 import ProductModel from "../schema/Product.model";
 import { ObjectId } from "mongoose"
-import ViewService from "./view.service";
+import ViewService from "./View.service";
 import { ViewInput } from "../libs/types/view";
 import { ViewGroup } from "../libs/enums/view.enum";
 
@@ -54,7 +54,7 @@ class ProductService {
          public async getProduct(
             memberId: ObjectId | null, 
             id: string 
-        ): Promise<void> {
+        ): Promise<Product> {
             const productId = shapeIntoMongooseObjectId(id)
 
             let result = await this.productModel
