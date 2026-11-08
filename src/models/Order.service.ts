@@ -1,7 +1,7 @@
 import { shapeIntoMongooseObjectId } from "../libs/config";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import { Member } from "../libs/types/member";
-import { Order, OrderItemInput } from "../libs/types/order";
+import { Order, OrderInquiry, OrderItemInput } from "../libs/types/order";
 import OrderModel from "../schema/Order.model";
 import OrderItemModel from "../schema/OrderItem.model";
 import { ObjectId } from "mongoose"
@@ -19,13 +19,16 @@ class OrderService {
         member: Member, 
         input: OrderItemInput[]
     ): Promise<Order> {
+        // summani hisoblash (reduce)
         const memberId = shapeIntoMongooseObjectId(member._id)
         const amount = input.reduce((accumulator: number, item: OrderItemInput)=> {
             return accumulator + item.itemPrice * item.itemQuantity;
-        }, 0);
+        }, 0); // 38
+        // yetkazib berish narxi
         const delivery = amount < 100 ? 5 : 0;
         console.log("value:", amount, delivery)
 
+        // chekning o’zini yaratish (Order)
         try {
             const newOrder: Order = await this.orderModel.create({
                 orderTotal: amount + delivery,
@@ -43,7 +46,7 @@ class OrderService {
             throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
         }
     }
-
+    // chek qatorlarini yozish (OrderItem)
     private async recordOrderItem(
         orderId: ObjectId, 
         input: OrderItemInput[]
@@ -58,6 +61,42 @@ class OrderService {
         const orderItemsState = await Promise.all(promisedList);
         console.log("orderItemsState:", orderItemsState);
     }
+
+    public async getMyOrders(
+  member: Member,
+  inquiry: OrderInquiry
+): Promise<Order[]> {
+  const memberId = shapeIntoMongooseObjectId(member._id);
+  const matches = { memberId: memberId, orderStatus: inquiry.orderStatus };
+
+  const result = await this.orderModel
+    .aggregate([
+      { $match: matches },
+      { $sort: { updatedAt: -1 } },
+      { $skip: (inquiry.page - 1) * inquiry.limit },
+      { $limit: inquiry.limit },
+      {
+        $lookup: {
+          from: "orderItems",
+          localField: "_id",
+          foreignField: "orderId",
+          as: "orderItems",
+        },
+      },
+      {
+        $lookup: {
+          from: "products",
+          localField: "orderItems.productId",
+          foreignField: "_id",
+          as: "productData",
+        },
+      },
+    ])
+    .exec();
+  if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+  return result;
+}
 };
 
 export default OrderService;
